@@ -1,2 +1,2 @@
-# auto-boarding
+# Auto-Boarding
 Automate the Boarding functionalities
