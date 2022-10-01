@@ -1,6 +1,8 @@
 # Auto-Boarding
 Automate the Boarding functionalities
 
+Code - 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
+
 Installing the GIT Client on Cent OS
 	[root@py-docker php]# yum install git
 
