@@ -28,11 +28,13 @@ Configure the GIT Client
 	git config --global user.email 'smseclg@gmail.com'
 
 Check the configurations
+
 	[root@py-docker boarding-prj]# git config --list
 		user.name=smseclg
 		user.email=smseclg@gmail.com
 
 Sync the Changes to the remote Repository
+
 	[root@py-docker auto-boarding]# git remote -v
 		origin  https://github.com/smseclg/auto-boarding.git (fetch)
 		origin  https://github.com/smseclg/auto-boarding.git (push)
