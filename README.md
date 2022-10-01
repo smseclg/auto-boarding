@@ -4,17 +4,21 @@ Automate the Boarding functionalities
 Code - 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
 
 Installing the GIT Client on Cent OS
+
 	[root@py-docker php]# yum install git
 
 Check the GIT Installaion
+
 	[root@py-docker php]# git --version
 		git version 1.8.3.1
 
 Creating the file on GITHUB
+
 	info.php
 	Dockerfile
 
 Clone the code from the remote repository
+
 	[root@py-docker boarding-prj]# git clone https://github.com/smseclg/auto-boarding.git
 		Cloning into 'auto-boarding'...
 		remote: Enumerating objects: 12, done.
@@ -24,6 +28,7 @@ Clone the code from the remote repository
 		Unpacking objects: 100% (12/12), done.
 
 Configure the GIT Client 
+
 	git config --global user.name 'smseclg'
 	git config --global user.email 'smseclg@gmail.com'
 
