@@ -55,3 +55,32 @@ Sync the Changes to the remote Repository
 			To https://github.com/smseclg/auto-boarding.git
    			d7cc2a6..0f54189  main -> main
 
+How to CHECKOUT the CODE from the REPO to LOCAL PC 
+
+	[root@py-docker auto-boarding]# pwd
+		/root/boarding-prj/auto-boarding
+		
+	[root@py-docker auto-boarding]# ll
+		total 16
+		-rw-r--r--. 1 root root    1 Oct  4 14:00 docker-compose.yml
+		-rw-r--r--. 1 root root  533 Oct  4 14:00 Dockerfile
+		-rw-r--r--. 1 root root   19 Oct  1 10:42 info.php
+		-rw-r--r--. 1 root root 1645 Oct  1 11:50 README.md
+	
+	[root@py-docker auto-boarding]# git pull https://github.com/smseclg/auto-boarding.git
+		remote: Enumerating objects: 8, done.
+		remote: Counting objects: 100% (8/8), done.
+		remote: Compressing objects: 100% (5/5), done.
+		remote: Total 6 (delta 1), reused 0 (delta 0), pack-reused 0
+		Unpacking objects: 100% (6/6), done.
+		From https://github.com/smseclg/auto-boarding
+ 		* branch            HEAD       -> FETCH_HEAD
+		Updating 94356ad..d557fdc
+		Fast-forward
+ 		Dockerfile         | 4 +++-
+ 		docker-compose.yml | 1 +
+ 		2 files changed, 4 insertions(+), 1 deletion(-)
+ 		create mode 100644 docker-compose.yml
+
+		
+
