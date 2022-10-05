@@ -1,1 +1,10 @@
+version: '3.7'
+
+services:
+  web:
+    image: ubu-apa1
+    ports:
+      - "8080:80"
+    volumes:
+      - /var/lib/docker/volumes/http-boarding/_data:/var/www/html/
 
