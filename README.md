@@ -1,4 +1,8 @@
 # Auto-Boarding
+
+Setup Instructions URL -
+https://docs.google.com/presentation/d/11m8dcZUoAiGJtBdV9gky9qeJSy6PTcz5403dEuf_Ddk/edit#slide=id.g15e85d8a479_0_5
+
 Automate the Boarding functionalities
 
 Code - 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
