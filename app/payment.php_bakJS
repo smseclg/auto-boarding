@@ -1,0 +1,68 @@
+<?php
+session_start();
+
+//if(!isset($_SESSION['authuser']))
+if($_SESSION['authuser'] == 0)
+    {
+        //header("location: ./login.php");
+        //exit;
+		echo "Logging to the Syatem first !!!";
+    } 
+    else 
+    {
+	
+	}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+	<form id="userForm" method="POST">
+		<label>Boarder ID: </label>
+		<input type="text" placeholder="Enter BoarderID: " name="bid" id="bid" required>
+		<br>
+		<button type="submit">Submit</button>
+	</form>
+	<div id="table-container"></div>
+</div>
+
+<script type="text/javascript">
+$('#userForm').submit(function(e){
+    e.preventDefault();
+		
+    $.ajax({
+        method:"POST",
+        url: "getboarder.php",
+        data:$(this).serialize(),
+        success: function(data){
+        $('#table-container').html(data);
+        $('#userForm').find('input').val('')
+    }});
+});
+</script>
+<?php echo $data;?>
+<div class="container2">
+	<form method="post" action="boardercontrol.php" name="boardercontrol">
+	
+		<label>Payment Amount: </label>
+		<input type="number" name="paymoney" required />
+		<br>
+		<input type="hidden" id="boarderstatus" name="boarderstatus" value="1">
+		<button type="submit" name="paysave" value="paysave">Add Payment</button>
+	</form>
+
+</body>
+</html>
+
+
+
+
+
+
+

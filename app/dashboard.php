@@ -18,7 +18,6 @@ if($_SESSION['authuser'] == 0)
 	echo "<a href=\"boarder.php\">Boarder Contract</a>"."<br>";
 	echo "<a href=\"payment.php\">Boarder Payment</a>"."<br>";
 	echo "<a href=\"room.php\">Room Add</a>"."<br>";
-	echo "<a href=\"payment.php\">Payments</a>"."<br>";
 	
 	echo "<br>";
 	echo "<br>";

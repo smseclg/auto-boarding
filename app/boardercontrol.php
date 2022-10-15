@@ -114,6 +114,69 @@ if($_SESSION['authuser'] == 0)
 			//	$_SESSION['message'] = "Memeber saved"; 
 				//header('location: member.php');
 			}
+
+//DB Insert Payment
+
+
+			
+//Function 1 -----------------------------------------------------			
+			// Get the detils of the boarders and rooms
+			function DetailsBoarderRooms($boarderroomid,$conn) 
+			{
+			  //echo "details-boarder-rooms!<br>";
+			  //echo $boarderroomid;
+			  
+			  //$sql = "SELECT * FROM `room` WHERE `room`.`roomna` = \"$boarderroomid\"";
+			  $sql = "SELECT * FROM `room` WHERE `room`.`roomna` = \"$boarderroomid\"";
+			  
+			  $result = mysqli_query($conn, $sql);
+			  			  
+				if (mysqli_num_rows($result) > 0) 
+					{
+						echo "<b>Got ROOM Results</b>"."<br>";
+						while($row = mysqli_fetch_assoc($result)) 
+						{
+								echo "Room ID :".$row["roomid"]."<br>";
+								echo "Room Name :".$row["roomna"]."<br>";
+								echo "Room Description :".$row["roomdesc"]."<br>";
+								echo "Room Status :".$row["roomstatus"]."<br>";
+								echo "<br>";
+						}
+					}
+					else
+					{
+						echo "Got no ROOM results ";
+					}
+					
+					
+				$sql = "SELECT * FROM `boarder` WHERE `boarder`.`boarderroomid` = \"$boarderroomid\"";
+				//echo $sql;
+				$result = mysqli_query($conn, $sql);
+				
+				if (mysqli_num_rows($result) > 0) 
+					{
+						echo "<b>Got Boarder Results</b>"."<br>";
+						while($row = mysqli_fetch_assoc($result)) 
+						{
+								echo "Boarder ID :".$row["boarderid"]."<br>";
+								$bid = $row["boarderid"];
+								echo "Boarder Name :".$row["boarderna"]."<br>";
+								echo "Boarder Start Date :".$row["boarderstartdate"]."<br>";
+								echo "Boarder Key Money :".$row["boarderkeymoneyamt"]."<br>";
+								echo "Boarder Room ID :".$row["boarderroomid"]."<br>";
+								$brid = $row["boarderroomid"];
+								echo "Room Sharing Status".$row["boardersharingroom"]."<br>";
+								echo "Boarder Monthly Rental :".$row["boardermonthlyrent"]."<br>";
+								//return $bid $brid;
+								return [$bid, $brid];
+						}
+					}
+					else
+					{
+						echo "Got no results ";
+					}
+	
+			}
 	
 	
 	}

@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 include('config/db.php');
 
@@ -33,6 +36,9 @@ if (isset($_POST['login'])) {
           if ($password == $userpass)
           {
           echo "User is authenticated";
+		  
+		  error_log("INFO - User Logged : ".$username);
+		  
           session_start();
           $_SESSION["authuser"] = 1;
           $_SESSION["username"] = $username;

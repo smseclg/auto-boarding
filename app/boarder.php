@@ -76,12 +76,11 @@ if($_SESSION['authuser'] == 0)
 				echo '<option value='.$row['roomna'].'>'.$row['roomdesc'].'</option>';
 			}
 		?>
-			<option value="SH">Sharing</option>
 	</select>
 	<br>
-	<p>if not,and not planning please explain why not </p>
+	<p>If sharing mention the room name here </p>
 	<input type="text" name="sharingtxt" id="sharingtxt" class="d-none" value="No Sharing">
-	<br>
+	<br><br>
 	<label>Monthly Rent Amount</label>
     <input type="number" name="monthlyrent" required />
     <br>
