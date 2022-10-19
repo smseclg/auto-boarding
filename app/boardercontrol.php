@@ -116,7 +116,30 @@ if($_SESSION['authuser'] == 0)
 			}
 
 //DB Insert Payment
+			if (isset($_POST['roompay'])) 
+			{
+				$rbid = $_POST['bid'];
+				$rid = $_POST['brid'];
+				$roompay = $_POST['paymoney'];
+				$payday = $_POST['paydate'];
+				
+				//echo $payday;
+				
+				$sql = "INSERT INTO  payment (paymentamt, paymentdate , paymentboarder, paymentroomid) VALUES ($roompay , '$payday', $rbid, '$rid')";
+				
+				echo "$sql";
 
+				if(mysqli_query($conn,$sql))
+				{
+					echo "Records added successfully.";
+				} else{
+					echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+				}
+				 
+				// Close connection
+				mysqli_close($conn);
+				
+			}
 
 			
 //Function 1 -----------------------------------------------------			
@@ -177,7 +200,78 @@ if($_SESSION['authuser'] == 0)
 					}
 	
 			}
-	
+
+//Function 2 Get Room Sharing User Details -----------------------------------------------------	
+			function SharingBoarderDetails($subroomid,$conn)
+			{
+				//echo "This is inside the function";
+				
+				$sql = "SELECT * FROM `room` WHERE `room`.`roomna` = \"$subroomid\"";
+			  
+				$result = mysqli_query($conn, $sql);
+							  
+					if (mysqli_num_rows($result) > 0) 
+						{
+							echo "<b>Got ROOM Results</b>"."<br>";
+							while($row = mysqli_fetch_assoc($result)) 
+							{
+									echo "Room ID :".$row["roomid"]."<br>";
+									echo "Room Name :".$row["roomna"]."<br>";
+									echo "Room Description :".$row["roomdesc"]."<br>";
+									echo "Room Status :".$row["roomstatus"]."<br>";
+									echo "<br>";
+							}
+						}
+						else
+						{
+							echo "Got no ROOM results ";
+						}
+						
+						
+				$sql = "SELECT * FROM `boarder` WHERE `boarder`.`boardersharingroom` = '$subroomid'";
+				//echo $sql;
+				$result = mysqli_query($conn, $sql);
+				
+				if (mysqli_num_rows($result) > 0) 
+					{
+						echo "<b>Got Boarder Results</b>"."<br>";
+						
+						$x = 0;
+						$BoarderArray = array();
+						
+						while($row = mysqli_fetch_assoc($result)) 
+						{
+								echo "Boarder ID :".$row["boarderid"]."<br>";
+								
+								$BoarderDetails = $row["boarderid"]."&";
+								//echo $BoarderDetails."1111111111111111";
+								
+								echo "Boarder Name :".$row["boarderna"]."<br>";
+								echo "Boarder Start Date :".$row["boarderstartdate"]."<br>";
+								echo "Boarder Key Money :".$row["boarderkeymoneyamt"]."<br>";
+								echo "Boarder Room ID :".$row["boarderroomid"]."<br>";
+								$BoarderDetails = $BoarderDetails.$row["boarderroomid"]."&".$row["boardersharingroom"];
+								//echo $BoarderDetails."2222222222222222";
+								
+								echo "Room Sharing Status".$row["boardersharingroom"]."<br>";
+								echo "Boarder Monthly Rental :".$row["boardermonthlyrent"]."<br><br>";
+								
+								$BoarderArray[$x] = $BoarderDetails;
+								$x = $x + 1;
+								
+								//return [$bid, $brid];
+						}
+						
+						return $BoarderArray;
+					}
+					else
+					{
+						echo "Got no results ";
+					}
+						
+						
+						
+			}
 	
 	}
 	

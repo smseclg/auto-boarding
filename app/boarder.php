@@ -35,7 +35,7 @@ if($_SESSION['authuser'] == 0)
 </head>
 <body>
 
-		<script type="text/javascript">
+	<script type="text/javascript">
 		function enablesTextSharing(answer)
 		{
 			console.log(answer.value);
@@ -75,11 +75,12 @@ if($_SESSION['authuser'] == 0)
 			while ($row = mysqli_fetch_array($result)) {
 				echo '<option value='.$row['roomna'].'>'.$row['roomdesc'].'</option>';
 			}
+			echo '<option value='.'SH'.'>'.'Sharing'.'</option>';
 		?>
 	</select>
 	<br>
 	<p>If sharing mention the room name here </p>
-	<input type="text" name="sharingtxt" id="sharingtxt" class="d-none" value="No Sharing">
+	<input type="text" name="sharingtxt" id="sharingtxt" class="d-none" value="Sharing Room ID">
 	<br><br>
 	<label>Monthly Rent Amount</label>
     <input type="number" name="monthlyrent" required />
