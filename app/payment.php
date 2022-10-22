@@ -82,6 +82,8 @@ if($_SESSION['authuser'] == 0)
 
 </form>
 
+<br><br><a href="dashboard.php">Go to Main Page!!!</a>
+
 </body>
 </html>
 

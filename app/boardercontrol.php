@@ -16,6 +16,8 @@ if($_SESSION['authuser'] == 0)
     echo "User Status : " . $_SESSION["authuser"] . ".<br>";
 	echo"-----------------------------------------"."<br>";
 
+// Add Boarder to the system freshly ..........
+
 			if (isset($_POST['save'])) {
 				$name = $_POST['bname'];
 				$startdate = $_POST['startdate'];
@@ -33,30 +35,45 @@ if($_SESSION['authuser'] == 0)
 				echo $boardermonthlyrent."<br>";
 				echo $boardersharingroomna."<br>";
 				
+				if ($boarderroomid == "SH"){
+					
+					$sql2 = "UPDATE `room` SET `roomstatus` = '0' WHERE `room`.`roomna` = \"$boardersharingroomna\"";
+					
+				}
+				else
+				{
+					$sql2 = "UPDATE `room` SET `roomstatus` = '0' WHERE `room`.`roomna` = \"$boarderroomid\"";
+					$boardersharingroomna = "No Sharing";
+					
+				}	
+				
 				$sql = "INSERT INTO  boarder (boarderna, boarderstartdate, boarderkeymoneyamt, boarderstatus, boarderroomid, boardermonthlyrent, boardersharingroom) VALUES ('$name', '$startdate', $keymoney, $boarderstatus, '$boarderroomid', $boardermonthlyrent, '$boardersharingroomna')";
 
 				if(mysqli_query($conn,$sql))
 				{
 					echo "Records added successfully."."<br>";
+					//echo "<br><br><a href=\"boarder.php\">Go to Add Boarder Page!!!</a>";
 				} else{
 					echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+					echo "<br><br><a href=\"boarder.php\">Go to Add Boarder Page!!!</a>";
 				}
-									
-				$sql = "UPDATE `room` SET `roomstatus` = '0' WHERE `room`.`roomna` = \"$boarderroomid\"";
-				//echo $sql;				
-
-				if(mysqli_query($conn,$sql))
+				
+				if(mysqli_query($conn,$sql2))
 				{
 					echo "Records Updated successfully.";
+					echo "<br><br><a href=\"boarder.php\">Go to Add Boarder Page!!!</a>";
 				} else{
 					echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-				}			
-				 
+				}		
+ 
 				// Close connection
 				mysqli_close($conn);
-			//	$_SESSION['message'] = "Memeber saved"; 
+				//	$_SESSION['message'] = "Memeber saved"; 
 				//header('location: member.php');
 			}
+
+
+// Add ROOM to the system freshly ..........
 
 			if (isset($_POST['roomsave'])) {
 				$roomname = $_POST['roomname'];
@@ -72,8 +89,10 @@ if($_SESSION['authuser'] == 0)
 				if(mysqli_query($conn,$sql))
 				{
 					echo "Records added successfully.";
+					echo "<br><br><a href=\"boarder.php\">Go to Add Boarder Page!!!</a>";
 				} else{
 					echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+					echo "<br><br><a href=\"boarder.php\">Go to Add Boarder Page!!!</a>";
 				}
 				 
 				// Close connection
@@ -82,6 +101,9 @@ if($_SESSION['authuser'] == 0)
 				//header('location: member.php');
 			}
 			
+
+
+// Disable the BOARDERS from the system
 			
 			if (isset($_GET['updatestatus'])) {
 				
@@ -104,9 +126,11 @@ if($_SESSION['authuser'] == 0)
 
 				if(mysqli_query($conn,$sql))
 				{
-					echo "Room Records Updated successfully.";
+					echo "<br>Room Records Updated successfully.<br>";
+					echo "<br><br><a href=\"dashboard.php\">Go to Main Page!!!</a>";
 				} else{
-					echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+					echo "<br>ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+					echo "<br><br><a href=\"dashboard.php\">Go to Main Page!!!</a>";
 				}
 				 
 				// Close connection
@@ -119,21 +143,25 @@ if($_SESSION['authuser'] == 0)
 			if (isset($_POST['roompay'])) 
 			{
 				$rbid = $_POST['bid'];
+				echo "------------------%".$rbid."%---------------";
 				$rid = $_POST['brid'];
 				$roompay = $_POST['paymoney'];
 				$payday = $_POST['paydate'];
+				$paymentsharing = $_POST['paymentsharing'];
 				
 				//echo $payday;
 				
-				$sql = "INSERT INTO  payment (paymentamt, paymentdate , paymentboarder, paymentroomid) VALUES ($roompay , '$payday', $rbid, '$rid')";
+				$sql = "INSERT INTO  payment (paymentamt, paymentdate , paymentboarder, paymentroomid, paymentsharing) VALUES ($roompay , '$payday', $rbid, '$rid', $paymentsharing)";
 				
 				echo "$sql";
 
 				if(mysqli_query($conn,$sql))
 				{
-					echo "Records added successfully.";
+					echo "<br>Records added successfully.<br>";
+					echo "<br><br><a href=\"payment.php\">Go to Add Payment Page!!!</a>";
 				} else{
-					echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+					echo "<br>ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+					echo "<br><br><a href=\"payment.php\">Go to Add Payment Page!!!</a";
 				}
 				 
 				// Close connection
@@ -159,20 +187,27 @@ if($_SESSION['authuser'] == 0)
 						echo "<b>Got ROOM Results</b>"."<br>";
 						while($row = mysqli_fetch_assoc($result)) 
 						{
-								echo "Room ID :".$row["roomid"]."<br>";
-								echo "Room Name :".$row["roomna"]."<br>";
-								echo "Room Description :".$row["roomdesc"]."<br>";
-								echo "Room Status :".$row["roomstatus"]."<br>";
+								echo "Room ID : ".$row["roomid"]."<br>";
+								echo "Room Name : ".$row["roomna"]."<br>";
+								echo "Room Description : ".$row["roomdesc"]."<br>";
+								if ($row["roomstatus"] == 0){
+									$romdtatus = "Occupied";
+								}
+								else{
+									$romdtatus = "Vacant";
+								}
+								echo "Room Status : ".$romdtatus."<br>";
 								echo "<br>";
 						}
 					}
 					else
 					{
 						echo "Got no ROOM results ";
+						echo "<br><br><a href=\"payment.php\">Go to Add Payment Page!!!</a>";
 					}
 					
 					
-				$sql = "SELECT * FROM `boarder` WHERE `boarder`.`boarderroomid` = \"$boarderroomid\"";
+				$sql = "SELECT * FROM `boarder` WHERE `boarder`.`boarderroomid` = \"$boarderroomid\" AND boarderstatus = 1";
 				//echo $sql;
 				$result = mysqli_query($conn, $sql);
 				
@@ -181,22 +216,23 @@ if($_SESSION['authuser'] == 0)
 						echo "<b>Got Boarder Results</b>"."<br>";
 						while($row = mysqli_fetch_assoc($result)) 
 						{
-								echo "Boarder ID :".$row["boarderid"]."<br>";
+								echo "Boarder ID : ".$row["boarderid"]."<br>";
 								$bid = $row["boarderid"];
-								echo "Boarder Name :".$row["boarderna"]."<br>";
-								echo "Boarder Start Date :".$row["boarderstartdate"]."<br>";
-								echo "Boarder Key Money :".$row["boarderkeymoneyamt"]."<br>";
-								echo "Boarder Room ID :".$row["boarderroomid"]."<br>";
+								echo "Boarder Name : ".$row["boarderna"]."<br>";
+								echo "Boarder Start Date : ".$row["boarderstartdate"]."<br>";
+								echo "Boarder Key Money : ".$row["boarderkeymoneyamt"]."<br>";
+								echo "Boarder Room ID : ".$row["boarderroomid"]."<br>";
 								$brid = $row["boarderroomid"];
-								echo "Room Sharing Status".$row["boardersharingroom"]."<br>";
-								echo "Boarder Monthly Rental :".$row["boardermonthlyrent"]."<br>";
+								echo "Room Sharing Status : ".$row["boardersharingroom"]."<br>";
+								echo "Boarder Monthly Rental : ".$row["boardermonthlyrent"]."<br>";
 								//return $bid $brid;
 								return [$bid, $brid];
 						}
 					}
 					else
 					{
-						echo "Got no results ";
+						echo "Got no results <br> ROOM SHOULD BE SHARING MODE !!!";
+						echo "<br><br><a href=\"payment.php\">Go to Add Payment Page!!!</a>";
 					}
 	
 			}

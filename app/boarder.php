@@ -109,7 +109,8 @@ $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
   // output data of each row
-  echo "<table style=\"width:100%\"><tr><th>Boarder ID</th>
+  echo "<table style=\"width:100%\"><tr>
+    <th>Boarder ID</th>
     <th>Boarder Name</th>
     <th>Boarder Start Date</th>
 	<th>Boarder Key Money</th>
@@ -127,16 +128,23 @@ if (mysqli_num_rows($result) > 0) {
 	echo "<td>".$row["boarderstartdate"]."</td>";
 	echo "<td>".$row["boarderkeymoneyamt"]."</td>";
 	echo "<td>".$row["boarderroomid"]."</td>";
+	if ($row["boarderroomid"] == "SH"){
+		$updateroomid = $row["boardersharingroom"];
+	}
+	else{
+		$updateroomid = $row["boarderroomid"];
+	}
 	echo "<td>".$row["boardersharingroom"]."</td>";
 	echo "<td>".$row["boardermonthlyrent"]."</td>";
 	//echo "<td>".$row["boarderstatus"]."</td>";
 	if ($row["boarderstatus"] == 1){
 		//echo "<td>ACTIVE</td>";
-		echo "<td>"."<a href=boardercontrol.php?updatestatus=".$row['boarderid']."&boarderroomid=".$row['boarderroomid'].">ACTIVE"."</a>"."</td>";	
+		echo "<td>"."<a href=boardercontrol.php?updatestatus=".$row['boarderid']."&boarderroomid=".$updateroomid.">ACTIVE"."</a>"."</td>";	
 	}
 	else {
 		echo "<td>LEFT</td>";
 	}
+	echo "</tr>";
   }
   echo "</table>";
 } else {
@@ -146,6 +154,6 @@ if (mysqli_num_rows($result) > 0) {
 mysqli_close($conn);
 }
 ?>
-
+<br><br><a href="dashboard.php">Go to Main Page!!!</a>
 </body>
 </html>	

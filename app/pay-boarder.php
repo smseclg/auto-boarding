@@ -37,7 +37,7 @@ if($_SESSION['authuser'] == 0)
 				echo "<form method=\"post\" action=\"boardercontrol.php\" name=\"boardercontrol\">";
 				echo "<label for=\"cars\">Choose a Boarder to add Payment:</label><br>";
 
-				echo "<select name=\"cars\" id=\"cars\">";
+				echo "<select name=\"bid\" id=\"bid\">";
 				  
 				  if ($arrlength >= 0)
 				  {	
@@ -67,8 +67,9 @@ if($_SESSION['authuser'] == 0)
 				echo "<br><input type=\"date\" id=\"paydate\" name=\"paydate\">";
 				echo "<br>";
 				echo "<br><br>";
-				echo "<input type=\"hidden\" id=\"bid\" name=\"bid\" value=$bid>";
-				echo "<input type=\"hidden\" id=\"brid\" name=\"brid\" value=$brid>";
+				//echo "<input type=\"hidden\" id=\"bid\" name=\"bid\" value=$bid>";
+				echo "<input type=\"hidden\" id=\"brid\" name=\"brid\" value=$subroomid>";
+				echo "<input type=\"hidden\" id=\"paymentsharing\" name=\"paymentsharing\" value=1>";
 				echo "<button type=\"submit\" name=\"roompay\" value=\"roompay\">Add Payment</button><br>";
 				echo "</form>";
 				
@@ -124,7 +125,7 @@ if($_SESSION['authuser'] == 0)
 			}
 			else
 			{			
-				echo $roomid."<br>";
+				//echo $roomid."<br>";
 				echo "<h1>Details Room / Boarder</h1>"."<br>";
 				
 				$ArrayBoarderDetails = DetailsBoarderRooms($roomid,$conn);
@@ -144,6 +145,7 @@ if($_SESSION['authuser'] == 0)
 				echo "<br><br>";
 				echo "<input type=\"hidden\" id=\"bid\" name=\"bid\" value=$bid>";
 				echo "<input type=\"hidden\" id=\"brid\" name=\"brid\" value=$brid>";
+				echo "<input type=\"hidden\" id=\"paymentsharing\" name=\"paymentsharing\" value=0>";
 				echo "<button type=\"submit\" name=\"roompay\" value=\"roompay\">Add Payment</button><br>";
 				echo "</form>";
 				
