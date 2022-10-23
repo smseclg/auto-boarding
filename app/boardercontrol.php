@@ -16,6 +16,33 @@ if($_SESSION['authuser'] == 0)
     echo "User Status : " . $_SESSION["authuser"] . ".<br>";
 	echo"-----------------------------------------"."<br>";
 
+
+// Add the expenses to the system
+			if (isset($_POST['expsave'])) {
+				
+				$expdate = $_POST['expdate'];
+				$exptype = $_POST['exp'];
+				$expamt = $_POST['expamt'];
+				
+				echo $expdate."()".$exptype."()".$expamt;
+				
+				
+				$sql = "INSERT INTO expenses (expdate, exptypeid, expamt) VALUES ('$expdate', $exptype, $expamt)";
+				
+				if(mysqli_query($conn,$sql))
+				{
+					echo "Records added successfully."."<br>";
+					echo "<br><br><a href=\"expence.php\">Go to Add Boarder Page!!!</a>";
+				} else{
+					echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+					echo "<br><br><a href=\"expence.php\">Go to Add Boarder Page!!!</a>";
+				}
+				
+				mysqli_close($conn);
+				
+			}
+
+
 // Add Boarder to the system freshly ..........
 
 			if (isset($_POST['save'])) {

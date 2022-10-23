@@ -14,7 +14,40 @@ if($_SESSION['authuser'] == 0)
     {
 		echo "Hellow User : " . $_SESSION["username"] . ".<br>";
 		echo "User Status : " . $_SESSION["authuser"] . ".<br>";
-		echo"-----------------------------------------"."<br>"; 
+		echo"-----------------------------------------"."<br>";
+
+		echo "<br>";
+		
+		$sql = "SELECT * FROM `payment` ORDER BY paymentid DESC LIMIT 6";
+		$result = mysqli_query($conn, $sql);
+		
+		if (mysqli_num_rows($result) > 0) 
+		{
+			echo "<table style=\"width:100%\"><tr>
+				<th>Payment ID</th>
+				<th>Payment Amount</th>
+				<th>Payment Date</th>
+				<th>Boarder ID</th>
+				<th>Room ID</th>
+			  </tr>";
+			while($row = mysqli_fetch_assoc($result)) 
+			{
+				echo "<tr>";
+				echo "<td>".$row["paymentid"]."</td>";
+				echo "<td>".$row["paymentamt"]."</td>";
+				echo "<td>".$row["paymentdate"]."</td>";
+				echo "<td>".$row["paymentboarder"]."</td>";
+				echo "<td>".$row["paymentroomid"]."</td>";
+				echo "</tr>";
+			}
+			
+			echo "</table>";
+			echo "<br>";
+		}
+		else
+		{
+			echo "0 results";
+		}
 	}
 
 ?>
@@ -81,6 +114,7 @@ if($_SESSION['authuser'] == 0)
   </div>
 
 </form>
+
 
 <br><br><a href="dashboard.php">Go to Main Page!!!</a>
 
