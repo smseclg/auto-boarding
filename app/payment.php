@@ -18,7 +18,13 @@ if($_SESSION['authuser'] == 0)
 
 		echo "<br>";
 		
-		$sql = "SELECT * FROM `payment` ORDER BY paymentid DESC LIMIT 6";
+		//$sql = "SELECT * FROM `payment` ORDER BY paymentid DESC LIMIT 6";
+		$sql = "SELECT payment.paymentid AS payid, payment.paymentdate AS paydate, payment.paymentamt AS payamt, boarder.boarderna AS boderna, room.roomdesc AS roomdesc
+		FROM payment
+		INNER JOIN boarder ON payment.paymentboarder=boarder.boarderid
+		INNER JOIN room ON payment.paymentroomid=room.roomna
+		ORDER BY paymentid DESC LIMIT 6;";
+		
 		$result = mysqli_query($conn, $sql);
 		
 		if (mysqli_num_rows($result) > 0) 
@@ -33,11 +39,11 @@ if($_SESSION['authuser'] == 0)
 			while($row = mysqli_fetch_assoc($result)) 
 			{
 				echo "<tr>";
-				echo "<td>".$row["paymentid"]."</td>";
-				echo "<td>".$row["paymentamt"]."</td>";
-				echo "<td>".$row["paymentdate"]."</td>";
-				echo "<td>".$row["paymentboarder"]."</td>";
-				echo "<td>".$row["paymentroomid"]."</td>";
+				echo "<td>".$row["payid"]."</td>";
+				echo "<td>".$row["payamt"]."</td>";
+				echo "<td>".$row["paydate"]."</td>";
+				echo "<td>".$row["boderna"]."</td>";
+				echo "<td>".$row["roomdesc"]."</td>";
 				echo "</tr>";
 			}
 			
